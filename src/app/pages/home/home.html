@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">Listado de series</h2>
+
+        <div *ngIf="message" class="alert" [class.alert-success]="messageType === 'success'"
+            [class.alert-danger]="messageType === 'danger'" role="alert">
+            {{ message }}
+        </div>
+
+        <div *ngIf="loading" class="alert alert-info" role="alert">
+            Cargando...
+        </div>
+
+        <div *ngIf="!loading && error" class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" *ngIf="!loading && !error">
+            <div class="col" *ngFor="let s of series">
+                <div class="card h-100">
+                    <img [src]="s.image" class="card-img-top" [alt]="s.title" *ngIf="s.image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ s.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Canal: {{ s.channel }}</h6>
+                        <p class="card-text">
+                            Rating: <span class="badge bg-primary">{{ s.rating }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

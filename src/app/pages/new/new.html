@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0 h5">Crear nueva serie</h3>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="submit()">
+
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Título</label>
+                        <input type="text" class="form-control" id="title" formControlName="title"
+                            [class.is-invalid]="title?.touched && title?.invalid">
+                        <div class="invalid-feedback" *ngIf="title?.touched && title?.invalid">
+                            <div *ngIf="title?.errors?.['required']">El título es obligatorio.</div>
+                            <div *ngIf="title?.errors?.['minlength']">Mínimo 3 caracteres.</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="channel" class="form-label">Canal</label>
+                        <input type="text" class="form-control" id="channel" formControlName="channel"
+                            [class.is-invalid]="channel?.touched && channel?.invalid">
+                        <div class="invalid-feedback" *ngIf="channel?.touched && channel?.invalid">
+                            El canal es obligatorio.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating (0 a 10)</label>
+                        <input type="number" class="form-control" id="rating" formControlName="rating" min="0" max="10"
+                            step="0.1" [class.is-invalid]="rating?.touched && rating?.invalid">
+                        <div class="invalid-feedback" *ngIf="rating?.touched && rating?.invalid">
+                            <div *ngIf="rating?.errors?.['required']">El rating es obligatorio.</div>
+                            <div *ngIf="rating?.errors?.['min'] || rating?.errors?.['max']">
+                                El rating debe estar entre 0 y 10.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label">URL de la Imagen</label>
+                        <input type="text" class="form-control" id="image" formControlName="image">
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || submitting">
+                            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-2" role="status"
+                                aria-hidden="true"></span>
+                            {{ submitting ? 'Guardando...' : 'Crear Serie' }}
+                        </button>
+                    </div>
+
+                    <div *ngIf="message" class="alert mt-3" [class.alert-success]="messageType === 'success'"
+                        [class.alert-danger]="messageType === 'danger'" role="alert">
+                        {{ message }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
